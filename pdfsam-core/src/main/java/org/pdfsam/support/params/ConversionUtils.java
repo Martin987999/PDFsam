@@ -52,7 +52,19 @@ public final class ConversionUtils {
                     throw new ConversionException(
                             DefaultI18nContext.getInstance().i18n("Invalid range: {0}.", range.toString()));
                 }
-                pageRangeSet.add(range);
+
+                // Fix intersect page ranges can be ignored.
+                if (pageRangeSet.size() <= 0) {
+                    pageRangeSet.add(range);
+                } else {
+                    for (PageRange p : pageRangeSet) {
+                        if (range.getStart() >= p.getStart() && range.getEnd() <= p.getEnd()) {
+                            continue;
+                        }
+
+                        pageRangeSet.add(range);
+                    }
+                }
             }
             return pageRangeSet;
         }
