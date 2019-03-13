@@ -53,15 +53,19 @@ public final class ConversionUtils {
                             DefaultI18nContext.getInstance().i18n("Invalid range: {0}.", range.toString()));
                 }
 
-                // Fix intersect page ranges can be ignored.
+                // Fixed on intersect page ranges.
                 if (pageRangeSet.size() <= 0) {
                     pageRangeSet.add(range);
                 } else {
-                    for (PageRange p : pageRangeSet) {
-                        if (range.getStart() >= p.getStart() && range.getEnd() <= p.getEnd()) {
-                            continue;
-                        }
+                    boolean isIntersected = false;
 
+                    for (PageRange p : pageRangeSet) {
+                        if (p.intersects(range)) {
+                            isIntersected = true;
+                        }
+                    }
+
+                    if (!isIntersected) {
                         pageRangeSet.add(range);
                     }
                 }
