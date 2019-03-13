@@ -53,7 +53,7 @@ public final class ConversionUtils {
                             DefaultI18nContext.getInstance().i18n("Invalid range: {0}.", range.toString()));
                 }
 
-                // Fixed intersect page ranges can be ignored.
+                // Fixed on intersect page ranges.
                 if (pageRangeSet.size() <= 0) {
                     pageRangeSet.add(range);
                 } else {
