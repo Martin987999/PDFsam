@@ -88,4 +88,12 @@ public class ConversionUtilsTest {
         assertEquals(4, pageSet.stream().findFirst().get().getEnd());
         assertTrue(pageSet.stream().anyMatch(PageRange::isUnbounded));
     }
+
+    @Test
+    public void intersect() {
+        Set<PageRange> pageSet = ConversionUtils.toPageRangeSet("1-3,2,1");
+        assertEquals(1, pageSet.size());
+        assertEquals(1, pageSet.stream().findFirst().get().getStart());
+        assertEquals(3, pageSet.stream().findFirst().get().getEnd());
+    }
 }
