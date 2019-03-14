@@ -16,6 +16,7 @@
 			task="org.sejda.impl.sambox.SplitByOutlineLevelTask" />
 		<task parameters="org.sejda.model.parameter.AlternateMixMultipleInputParameters"
 			task="org.sejda.impl.sambox.AlternateMixTask" />
+		<task parameters="org.pdfsam.task.AlternateMixSingleInputParameters" task="org.pdfsam.task.AlternateMixTask" />
 		<task parameters="org.pdfsam.task.BulkRotateParameters" task="org.pdfsam.task.BulkRotateTask" />
 		<task parameters="org.sejda.model.parameter.ExtractPagesParameters"
 			task="org.sejda.impl.sambox.ExtractPagesTask" />
