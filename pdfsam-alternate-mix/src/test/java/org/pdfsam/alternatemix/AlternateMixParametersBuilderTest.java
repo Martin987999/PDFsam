@@ -32,6 +32,7 @@ import org.sejda.model.input.PdfFileSource;
 import org.sejda.model.input.PdfMixInput;
 import org.sejda.model.output.ExistingOutputPolicy;
 import org.sejda.model.output.FileTaskOutput;
+import org.pdfsam.task.AlternateMixSingleInputParameters;
 import org.sejda.model.parameter.AlternateMixMultipleInputParameters;
 import org.sejda.model.pdf.PdfVersion;
 
@@ -60,7 +61,7 @@ public class AlternateMixParametersBuilderTest {
         victim.addInput(third);
         victim.version(PdfVersion.VERSION_1_7);
         assertTrue(victim.hasInput());
-        AlternateMixMultipleInputParameters params = victim.build();
+        AlternateMixSingleInputParameters params = victim.build();
         assertTrue(params.isCompress());
         assertEquals(ExistingOutputPolicy.OVERWRITE, params.getExistingOutputPolicy());
         assertEquals(PdfVersion.VERSION_1_7, params.getVersion());
@@ -74,6 +75,28 @@ public class AlternateMixParametersBuilderTest {
         assertEquals(2, params.getInputList().get(0).getStep());
         assertEquals(4, params.getInputList().get(1).getStep());
         assertEquals(1, params.getInputList().get(2).getStep());
+        assertEquals(output, params.getOutput());
+    }
+
+    @Test
+    public void buildWithSingleDoc() throws IOException {
+        AlternateMixParametersBuilder victim = new AlternateMixParametersBuilder();
+        victim.compress(true);
+        PdfMixInput first = new PdfMixInput(PdfFileSource.newInstanceNoPassword(folder.newFile("first.pdf")), true, 2);
+        victim.addInput(first);
+        FileTaskOutput output = mock(FileTaskOutput.class);
+        victim.output(output);
+        victim.existingOutput(ExistingOutputPolicy.OVERWRITE);
+        victim.version(PdfVersion.VERSION_1_7);
+        assertTrue(victim.hasInput());
+        AlternateMixSingleInputParameters params = victim.build();
+        assertTrue(params.isCompress());
+        assertEquals(ExistingOutputPolicy.OVERWRITE, params.getExistingOutputPolicy());
+        assertEquals(PdfVersion.VERSION_1_7, params.getVersion());
+        assertEquals(1, params.getInputList().size());
+        assertEquals(first, params.getInputList().get(0));
+        assertTrue(params.getInputList().get(0).isReverse());
+        assertEquals(2, params.getInputList().get(0).getStep());
         assertEquals(output, params.getOutput());
     }
 }
