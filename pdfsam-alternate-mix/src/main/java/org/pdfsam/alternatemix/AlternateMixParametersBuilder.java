@@ -1,11 +1,11 @@
-/* 
+/*
  * This file is part of the PDF Split And Merge source code
  * Created on 26/giu/2014
  * Copyright 2017 by Sober Lemur S.a.s. di Vacondio Andrea (info@pdfsam.org).
  *
  * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as 
- * published by the Free Software Foundation, either version 3 of the 
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -18,23 +18,23 @@
  */
 package org.pdfsam.alternatemix;
 
-import java.util.Set;
-
 import org.pdfsam.support.params.AbstractPdfOutputParametersBuilder;
 import org.pdfsam.support.params.SingleOutputTaskParametersBuilder;
+import org.pdfsam.task.AlternateMixSingleInputParameters;
 import org.sejda.common.collection.NullSafeSet;
 import org.sejda.model.input.PdfMixInput;
 import org.sejda.model.output.FileTaskOutput;
 import org.sejda.model.parameter.AlternateMixMultipleInputParameters;
 
+import java.util.Set;
+
 /**
  * Builder for the {@link AlternateMixMultipleInputParameters}
- * 
- * @author Andrea Vacondio
  *
+ * @author Andrea Vacondio
  */
-class AlternateMixParametersBuilder extends AbstractPdfOutputParametersBuilder<AlternateMixMultipleInputParameters>
-        implements SingleOutputTaskParametersBuilder<AlternateMixMultipleInputParameters> {
+class AlternateMixParametersBuilder extends AbstractPdfOutputParametersBuilder<AlternateMixSingleInputParameters>
+        implements SingleOutputTaskParametersBuilder<AlternateMixSingleInputParameters> {
 
     private FileTaskOutput output;
     private Set<PdfMixInput> inputs = new NullSafeSet<>();
@@ -53,8 +53,8 @@ class AlternateMixParametersBuilder extends AbstractPdfOutputParametersBuilder<A
     }
 
     @Override
-    public AlternateMixMultipleInputParameters build() {
-        AlternateMixMultipleInputParameters params = new AlternateMixMultipleInputParameters();
+    public AlternateMixSingleInputParameters build() {
+        AlternateMixSingleInputParameters params = new AlternateMixSingleInputParameters();
         params.setCompress(isCompress());
         params.setExistingOutputPolicy(existingOutput());
         params.setVersion(getVersion());
