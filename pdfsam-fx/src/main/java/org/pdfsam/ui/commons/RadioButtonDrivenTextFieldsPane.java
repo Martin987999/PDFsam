@@ -1,11 +1,11 @@
-/* 
+/*
  * This file is part of the PDF Split And Merge source code
  * Created on 09/giu/2014
  * Copyright 2017 by Sober Lemur S.a.s. di Vacondio Andrea (info@pdfsam.org).
  *
  * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as 
- * published by the Free Software Foundation, either version 3 of the 
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -33,7 +33,7 @@ import javafx.scene.text.Text;
 
 /**
  * GridPane containing a {@link RadioButton}s that, when selected, activate the corresponding text field.
- * 
+ *
  * @author Andrea Vacondio
  *
  */
@@ -55,15 +55,7 @@ public class RadioButtonDrivenTextFieldsPane extends GridPane {
         GridPane.setHalignment(radio, HPos.LEFT);
         GridPane.setHalignment(field, HPos.LEFT);
         GridPane.setFillWidth(field, true);
-        field.setPrefWidth(300);
-        field.setDisable(true);
-        radio.selectedProperty().addListener((o, oldVal, newVal) -> {
-            field.setDisable(!newVal);
-            if (newVal) {
-                field.requestFocus();
-            }
-        });
-        radio.setToggleGroup(group);
+        setFieldAndRadio(radio, field);
         add(radio, 0, rows);
         add(field, 1, rows);
         if (nonNull(helpIcon)) {
@@ -72,5 +64,25 @@ public class RadioButtonDrivenTextFieldsPane extends GridPane {
         rows++;
 
     }
+
+	private void setFieldAndRadio(RadioButton radio, Region field) {
+		setField(field);
+        setRadioButton(radio, field);
+	}
+
+	private void setField(Region field) {
+		field.setPrefWidth(300);
+        field.setDisable(true);
+	}
+
+	private void setRadioButton(RadioButton radio, Region field) {
+		radio.selectedProperty().addListener((o, oldVal, newVal) -> {
+            field.setDisable(!newVal);
+            if (newVal) {
+                field.requestFocus();
+            }
+        });
+        radio.setToggleGroup(group);
+	}
 
 }
