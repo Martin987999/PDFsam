@@ -57,13 +57,7 @@ public final class ConversionUtils {
                 if (pageRangeSet.size() <= 0) {
                     pageRangeSet.add(range);
                 } else {
-                    boolean isIntersected = false;
-
-                    for (PageRange p : pageRangeSet) {
-                        if (p.intersects(range)) {
-                            isIntersected = true;
-                        }
-                    }
+					boolean isIntersected = isIntersected(pageRangeSet, range);
 
                     if (!isIntersected) {
                         pageRangeSet.add(range);
@@ -75,7 +69,19 @@ public final class ConversionUtils {
         return Collections.emptySet();
     }
 
-    private static PageRange toPageRange(String value) throws ConversionException {
+	public static boolean isIntersected(Set<PageRange> pageRangeSet, PageRange range) {
+		boolean isIntersected = false;
+
+		for (PageRange p : pageRangeSet) {
+			if (p.intersects(range)) {
+				isIntersected = true;
+			}
+		}
+
+		return isIntersected;
+	}
+
+	private static PageRange toPageRange(String value) throws ConversionException {
         String[] limits = splitAndTrim(value, "-");
         if (limits.length > 2) {
             throw new ConversionException(DefaultI18nContext.getInstance().i18n(
