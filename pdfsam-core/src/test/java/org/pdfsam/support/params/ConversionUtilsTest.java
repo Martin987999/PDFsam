@@ -96,13 +96,4 @@ public class ConversionUtilsTest {
         assertEquals(1, pageSet.stream().findFirst().get().getStart());
         assertEquals(3, pageSet.stream().findFirst().get().getEnd());
     }
-
-    @Test
-    public void isIntersected() {
-        Set<PageRange> pageSet = ConversionUtils.toPageRangeSet("1-3");
-        PageRange range = new PageRange(2);
-        boolean isIntersected = ConversionUtils.isIntersected(pageSet, range);
-        assertEquals(true, isIntersected);
-    }
-
 }
